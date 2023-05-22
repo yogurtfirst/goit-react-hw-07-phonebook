@@ -1,10 +1,15 @@
 import PropTypes from 'prop-types';
-import { Contact, Btn } from './ContactItem.styled';
+import { FiGithub, FiTrash2 } from "react-icons/fi";
+import { Contact, Avatar, Name, Phone, Btn } from './ContactItem.styled';
 
-const ContactItem = ({ name, id, number, deleteContact }) => (
+export const ContactItem = ({ name, id, number, deleteContact }) => (
     <Contact name="contact">
-        {name}: {number}
-        <Btn type="button" onClick={() => deleteContact(id)} id={id}>Delete</Btn>
+        <Avatar><FiGithub size={24}/></Avatar>
+        <div>
+            <Name>{name}</Name>
+            <Phone>{number}</Phone>
+        </div>
+        <Btn type="button" onClick={() => deleteContact(id)} id={id}><FiTrash2 size={24}/></Btn>
     </Contact>
 );
 
@@ -14,5 +19,3 @@ ContactItem.propTypes = {
     number: PropTypes.string.isRequired,
     deleteContact: PropTypes.func.isRequired,
 };
-
-export default ContactItem;

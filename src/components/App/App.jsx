@@ -5,7 +5,7 @@ import { ListTitle, Wrapper } from './App.styled';
 
 export const App = () => (
     <Wrapper>
-        <h1>Phonebook</h1>
+        <h1 style={{margin: 0}}>Phonebook</h1>
         <ContactForm />
         <ListTitle>Contacts</ListTitle>
         <Filter />

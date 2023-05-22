@@ -1,16 +1,16 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts } from '../../redux/selectors';
-import { addContact } from '../../redux/contactsSlice';
+import { createContact } from '../../redux/action';
 import { ContactWrapper, Label, Input, Button } from './ContactForm.styled';
 
 export const ContactForm = () => {
     const [name, setName] = useState('');
-    const [number, setNumber] = useState('');
+    const [phone, setPhone] = useState('');
     const dispatch = useDispatch();
     const contacts = useSelector(getContacts);
 
-    const createContact = contact => dispatch(addContact(contact));
+    const addContact = contact => dispatch(createContact(contact));
 
     const onChange = ({ target: { name, value } }) => {
         switch (name) {
@@ -18,7 +18,7 @@ export const ContactForm = () => {
                 setName(value);
                 break;
             case 'number':
-                setNumber(value);
+                setPhone(value);
                 break;
             default:
                 console.error(`Unexpected attribute - ${name}`);
@@ -28,11 +28,11 @@ export const ContactForm = () => {
     const onAddToContactSubmit = e => {
         e.preventDefault();
 
-        if (contacts.some(contact => contact.name === name)) alertmessage(name)
-        else createContact({ name, number });
+        if (contacts.items.some(contact => contact.name === name)) alertmessage(name)
+        else addContact({ name, phone });
 
         setName('');
-        setNumber('');
+        setPhone('');
     };
 
     const alertmessage = name => alert(`${name} is already in contacts`);
@@ -59,7 +59,7 @@ export const ContactForm = () => {
                 title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                 required
                 onChange={onChange}
-                value={number}
+                value={phone}
             />
             <Button type="submit">Add to contact</Button>
         </ContactWrapper>
